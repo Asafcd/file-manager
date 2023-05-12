@@ -14,7 +14,7 @@ function NavBar() {
         <nav className="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
             <div className="container-fluid d-flex">
 
-                <a className="navbar-brand" href="#">
+                <a className="navbar-brand" href="/">
                     File Manager
                 </a>
                 <button
@@ -30,9 +30,9 @@ function NavBar() {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     { navs.map( ({name, to}) => (
-                        <ul className="navbar-nav mx-auto">
+                        <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
-                                <a className="nav-link" href="#">
+                                <a className="nav-link" href={to}>
                                 {name}
                                 </a>
                             </li>
@@ -40,13 +40,23 @@ function NavBar() {
                         </ul>
                         ))
                     }
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Log Out</a>
+                   
+                    {/* <ul className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">Log Out</a>
                         </li>
-                    </ul>
+                    </ul> */}
                 </div>
+                <div className="end">
+                    <ul className="navbar-nav my-2 my-sm-0">
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">Log Out</a>
+                        </li>
+                    </ul> 
+                    </div>
             </div>
+
+
             
         </nav>
     );

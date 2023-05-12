@@ -1,5 +1,6 @@
+//@ts-nocheck
 import { getFirestore, collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, Firestore, CollectionReference, QuerySnapshot } from "firebase/firestore";
-import { app } from '../firebase'
+import { app } from '../firebase.ts'
 import { Archive } from "../Models/file";
 
 const db: Firestore = getFirestore(app)
@@ -17,9 +18,8 @@ export const addArchive = async (archive: Archive) => {
 
 export const getArchives = async () => {
     try {
-        const archiveDocs: QuerySnapshot = await getDocs(archivesCollection)
-        return archiveDocs
-        
+        const archives: QuerySnapshot = await getDocs(archivesCollection)
+        return archives.docs
     } catch (error) {
         console.error("Error getting archives: ", error);
     }
