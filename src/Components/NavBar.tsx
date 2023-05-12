@@ -4,10 +4,10 @@ import React from "react";
 function NavBar() {
     const navs = [
         {name: "Expedientes", to: "/archives"},
-        {name: "Evidencias", to: "/files"},
-        {name: "Clientes", to: "/clients"},
-        {name: "Calendario", to: "/calendar"},
-        {name: "Agenda", to: "/agenda"},
+        //{name: "Evidencias", to: "/files"},
+        //{name: "Clientes", to: "/clients"},
+        //{name: "Calendario", to: "/calendar"},
+        //{name: "Agenda", to: "/agenda"},
     ]
 
     return (
@@ -40,12 +40,6 @@ function NavBar() {
                         </ul>
                         ))
                     }
-                   
-                    {/* <ul className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Log Out</a>
-                        </li>
-                    </ul> */}
                 </div>
                 <div className="end">
                     <ul className="navbar-nav my-2 my-sm-0">

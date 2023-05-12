@@ -19,9 +19,11 @@ function Archives() {
         setArchives(archives); 
     }
     const deleteArchiveData = async (id) => {
-        const result = await deleteArchive(id);
-        result ? setSuccess("Expediente eliminado") : setError("Algo salió mal");
-        getArchivesData()
+        if( window.confirm('Esta accion no se puede deshacer ¿Continuar?')) {
+            const result = await deleteArchive(id);
+            result ? setSuccess("Expediente eliminado") : setError("Algo salió mal");
+            getArchivesData()
+        }
         
     }
 
@@ -60,7 +62,7 @@ return(
                         
                         <TableCell >
                             <NavLink 
-                            to={`/archive/${id}`} 
+                            to={`/archives/${id}`} 
                             className="btn btn-info mx-2"
                             >Actualizar</NavLink>
                             <button 

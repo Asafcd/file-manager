@@ -3,12 +3,13 @@ import React, {useState} from 'react'
 import { Alert, Button, Container, Grid, TextField, Typography } from "@mui/material";
 import useForm from '../Hooks/useForm.ts';
 import { addArchive } from '../Service/ArchiveService.ts'
-import { Archive } from '../Models/file.js';
+import { Archive } from '../Models/file.ts';
 
 const emptyArchive: Archive = {
     archiveNo: "",
     client: "",
     evidence: "",
+    totalEvidence: 0,
     lastUpdated: new Date()
     //filesArray:[]
 }
@@ -16,7 +17,7 @@ const emptyArchive: Archive = {
 function AddArchive() {
     
     const [archiveData, handleChange] = useForm(emptyArchive);
-    const { archiveNo, client, evidence, totalEvidences, lastUpdated } = archiveData; 
+    const { archiveNo, client, evidence, totalEvidence, lastUpdated } = archiveData; 
 
     const [ error, setError ] = useState('');
     const [ success, setSuccess ] = useState('');
@@ -48,11 +49,11 @@ function AddArchive() {
               <br/><br/>
               <TextField type="text" name="evidence" value={evidence} onChange={handleChange} fullWidth={true} label="Evidence" variant="outlined" />
               <br/><br/>
-              <TextField type="number" name="totalEvidence" value={totalEvidences} onChange={handleChange} fullWidth={true} label="Total Evidence" variant="outlined" />
+              <TextField type="number" name="totalEvidence" value={totalEvidence} onChange={handleChange} fullWidth={true} label="" variant="outlined" />
               <br/><br/>
               <TextField disabled="true" type="date" name="lastUpdated" value={lastUpdated} onChange={handleChange} fullWidth={true} label="" variant="outlined" />
               <br/><br/>
-              <Button variant="outlined" onClick={save}> Guardar </Button>
+              <Button className="btn btn-success mx-2" variant="outlined" onClick={save}> Guardar </Button>
               </Grid>
             </Grid>
             </Grid>
