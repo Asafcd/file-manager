@@ -1,8 +1,9 @@
 //@ts-nocheck
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
+import { useParams } from 'react-router-dom';
 import { Alert, Button, Container, Grid, TextField, Typography } from "@mui/material";
-import useForm from '../Hooks/useForm.ts';
-import { addArchive } from '../Service/ArchiveService.ts'
+import useForm from '../Hooks/useForm.js';
+import { getArchive, updateArchive } from '../Service/ArchiveService.js'
 import { Archive } from '../Models/file.js';
 
 const emptyArchive: Archive = {
@@ -13,16 +14,26 @@ const emptyArchive: Archive = {
     //filesArray:[]
 }
 
-function AddArchive() {
+function OneArchive() {
     
-    const [archiveData, handleChange] = useForm(emptyArchive);
+    const {id} = useParams()
+    const [archiveData, handleChange, setDataState] = useForm(emptyArchive);
     const { archiveNo, client, evidence, totalEvidences, lastUpdated } = archiveData; 
 
     const [ error, setError ] = useState('');
     const [ success, setSuccess ] = useState('');
 
-    const save = async () => {
-        const result = await addArchive(archiveData);
+    useEffect(() => {
+        getArchiveData();
+    },[]);
+
+    const getArchiveData = async (id) => {
+        const archive = await getArchive(id)
+        setDataState(archive)
+    }
+
+    const updateData = async () => {
+        const result = await updateArchive(archiveData);
         result ? setSuccess("Expediente creado") : setError("Algo salió mal");
     }
 
@@ -52,7 +63,7 @@ function AddArchive() {
               <br/><br/>
               <TextField disabled="true" type="date" name="lastUpdated" value={lastUpdated} onChange={handleChange} fullWidth={true} label="" variant="outlined" />
               <br/><br/>
-              <Button variant="outlined" onClick={save}> Guardar </Button>
+              <Button variant="outlined" onClick={updateData}> Guardar </Button>
               </Grid>
             </Grid>
             </Grid>
@@ -61,4 +72,4 @@ function AddArchive() {
     )
 }
 
-export default AddArchive
+export default OneArchive

@@ -46,7 +46,7 @@ export const updateArchive = async (id, archive) => {
 
 export const deleteArchive = async (id) => {
     try {
-        await deleteDoc( doc(archivesCollection, "DC"));
+        await deleteDoc( doc(archivesCollection, id));
         return true
     } catch (error) {
         console.error("failed delete: ", error)
