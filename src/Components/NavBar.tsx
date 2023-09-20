@@ -3,7 +3,7 @@ import React from "react";
 
 function NavBar() {
     const navs = [
-        {name: "Expedientes", to: "/archives"},
+        {name: "Demandas", to: "/archives"},
         //{name: "Evidencias", to: "/files"},
         //{name: "Clientes", to: "/clients"},
         //{name: "Calendario", to: "/calendar"},

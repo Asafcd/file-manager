@@ -1,16 +1,33 @@
-export interface Archive {
-    archiveNo: string,
-    client: string,
-    evidence: string,
-    totalEvidence: number,
-    lastUpdated: Date
-    //filesArray: Array<File> | undefined
+export interface Demanda {
+    no_exp : string,
+    demandante: Persona,
+    resolucion :{
+        fecha : Date,
+        impugnacion : string,
+        conceptos: string,
+    },
+    demandado: string,
+    motivos: string,
+    pruebas: [ string ],
+    tercero : Persona,
+    registro : [ Registro ]
 }
 
-interface File {
-    archive: string,
-    client: string,
-    fileName: string,
-    bucketURL: string,
-    uploadedDate: Date,
+interface Persona {
+    nombre : string,
+    calle : string,
+    numero : string,
+    colonia : string,
+    codigoPostal : string,
+    municipio : string,
+    estado : string
+}
+
+interface Registro {
+    id: string,
+    tipo: string,
+    status: string,
+    fechaCreado : Date,
+    fechaPendiente : Date,
+    evidencia : string,
 }
