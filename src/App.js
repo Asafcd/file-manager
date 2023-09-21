@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
       <NavBar/>
       <Routes>
-        <Route path='/' element={<Archives/>} />
+        <Route path='/' element={<Home/>} />
         <Route path='/archives' element={<Archives/>} />
         <Route path='/archives/0' element={<AddArchive/>} />
         <Route path='/archives/:id' element={<OneArchive/>} />
