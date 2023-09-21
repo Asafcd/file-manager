@@ -4,6 +4,6 @@ services:
   casa-emp:
     build: .
     volumes:
-    - ./src:/usr/app/src
+    - ./src:/app/src
     ports:
     - 1340:80   
