@@ -52,7 +52,7 @@ return(
 
                 const { no_exp, demandante: {nombre}, resolucion: {impugnacion}, registro } : Demanda = archive.data();
                 const { id } : string = archive;
-                registro.sort((a,b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
+                //registro.sort((a,b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
                 console.log(registro)
                 return (
                     <TableRow

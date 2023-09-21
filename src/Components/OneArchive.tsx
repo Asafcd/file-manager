@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { Alert, Button, Container, Grid, Table, TableBody, TableHead, TableRow, TableCell, Typography } from "@mui/material";
+import { NavLink } from 'react-router-dom';
 
 import useForm from '../Hooks/useForm.ts';
 import { getArchive, updateArchive } from '../Service/ArchiveService.ts'
@@ -41,8 +42,10 @@ const emptyArchive: Demanda = {
     {
       id: '',
       tipo: '',
-      evidencia: '',
-      fecha: new Date(),
+      status: '',
+      fechaCreado : new Date(),
+      fechaPendiente : '',
+      evidencia : '',
     },
   ]
 }
@@ -50,15 +53,15 @@ const emptyArchive: Demanda = {
 function OneArchive() {
 
   const { id } = useParams()
-  const [archive, setArchive] = useState<Archive>(emptyArchive)
-  //const [archiveData, handleChange, setDataState] = useForm(archive);
+  const [archive, setArchive] = useState<Demanda>(emptyArchive)
+  const [archiveData, handleChange, setDataState] = useForm(archive);
   const { no_exp,
     demandante: { nombre, calle, numero, colonia, codigoPostal, municipio, estado },
     resolucion: { fecha, impugnacion, conceptos },
     demandado, motivos, pruebas,
     tercero: { nombre: nombre_t, calle: calle_t, numero: numero_t, colonia: colonia_t, codigoPostal: cp_t, municipio: municipio_t, estado: estado_t },
-    registro } = archive;
-  
+    registro } = archiveData;
+    console.log(registro)
   const [urlFile, setUrlFile] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -71,10 +74,10 @@ function OneArchive() {
     try {
       const archive = await getArchive(id)
       const { no_exp: idDemanda, pruebas: filename, resolucion: {fecha: date}} = archive
-      console.log(new Date(date))
+      //console.log(new Date(date))
       await getUrl(idDemanda, filename)
       setArchive(archive)
-      //setDataState(archive)
+      setDataState(archive)
       
     } catch (error) {
       console.log(error)  
@@ -91,7 +94,7 @@ function OneArchive() {
   const getUrl = async (id: string, filename: string) => {
     const url = await downloadFile(id, filename)
     setUrlFile(url)
-    console.log(url)
+    //console.log(url)
   }
 
   return (
@@ -171,7 +174,45 @@ function OneArchive() {
       </Container>
 
       <hr/>
-      <RegistroTable registros = {registro} />
+      <Container sx={{ display: 'flex', flexDirection: 'column', alignItems:'center' }}>
+            <Typography variant='h5' align='center'> <strong>Registros</strong> </Typography>
+            <NavLink to={'./registro/'+no_exp} className='btn btn-primary' style={{width:'25%', margin:10}}>
+
+                Añadir registro
+            </NavLink>
+
+            <Table>
+                <TableHead>
+                    <TableRow>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell align='center' > <strong> Tipo </strong> </TableCell>
+                        <TableCell align='center'> <strong> Status </strong> </TableCell>
+                        <TableCell align='center'> <strong> Fecha creado </strong> </TableCell>
+                        <TableCell align='center'> <strong> Fecha de pentiente </strong> </TableCell>
+                        <TableCell align='center'> <strong> Evidencia </strong> </TableCell>
+                        <TableCell align='center'> <strong> Acciones </strong> </TableCell>
+
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {registro !== undefined && registro.map((row) => (
+                        <TableRow key={row.id}>
+                            <TableCell align='center'>{row.tipo}</TableCell>
+                            <TableCell align='center'>{row.status}</TableCell>
+                            <TableCell align='center'>{row.fecha_creado}</TableCell>
+                            <TableCell align='center'>{row.fecha_pendiente}</TableCell>
+                            <TableCell align='center'>{row.evidencia}</TableCell>
+                            <TableCell align='center'>
+                                <Button variant='contained' color='primary' style={{margin:5}}>Ver</Button>
+                                <Button variant='contained' color='primary' style={{margin:5}}>Concluir</Button>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+
+            </Table>
+        </Container>
     
     </Container>
 

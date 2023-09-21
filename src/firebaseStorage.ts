@@ -28,6 +28,20 @@ export const uploadFile = async (id: string, file: File) => {
         return false
     }
 }
+export const uploadFileRegistro = async (id: string, file: File) => {
+    try {
+        const fileRef = ref(storage, 'demanda/' + id + '/registro/' + file.name)
+        /* const metadata = {
+            contentType: 'image/jpeg',
+        }; */
+          
+        await uploadBytes(fileRef, file/*, metadata */);
+        return true
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+}
 
 export const downloadFile = async (id: string, file: string) => {
     try {

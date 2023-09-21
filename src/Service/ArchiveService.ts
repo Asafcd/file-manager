@@ -1,17 +1,33 @@
 //@ts-nocheck
 import { getFirestore, collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, Firestore, CollectionReference, QuerySnapshot } from "firebase/firestore";
 import { app } from '../firebase.ts'
-import { Archive } from "../Models/file";
+import { Demanda, Registro } from "../Models/file";
 
 const db: Firestore = getFirestore(app)
 const archivesCollection: CollectionReference = collection(db, "archives")
+//const registroCollection: CollectionReference = collection(db, "archives/registro")
 
-export const addArchive = async (archive: Archive) => {
+export const addArchive = async (archive: Demanda) => {
     try {
         await addDoc(collection(db, "archives"), archive)
         return true
       } catch (e) {
         console.error("Error adding document: ", e);
+        return false
+      }
+}
+export const addRegistroToEvidence = async ( no_exp: string, registroFile: Registro) => {
+    try {
+        const demanda = await getDoc(doc(archivesCollection, no_exp))
+        console.log(demanda.data())
+        const oldRegistro = demanda.data().registro
+        const demandaActualizada = { ...demanda.data(), registro: [...oldRegistro, registroFile] }
+        console.log(demandaActualizada)
+        await updateDoc( doc(archivesCollection, no_exp), demandaActualizada);
+
+        return true
+      } catch (e) {
+        console.error("Error adding regitro: ", e);
         return false
       }
 }

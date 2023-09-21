@@ -17,7 +17,7 @@ function App() {
         <Route path='/archives' element={<Archives/>} />
         <Route path='/archives/0' element={<AddArchive/>} />
         <Route path='/archives/:id' element={<OneArchive/>} />
-        <Route path='/archives/:id/registro/0' element={<RegistroForm/>} />
+        <Route path='/archives/:id/registro/:no' element={<RegistroForm/>} />
       </Routes>
     </BrowserRouter>
   );
