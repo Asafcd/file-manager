@@ -1,7 +1,6 @@
 {
   "name": "file-manager",
   "version": "0.1.0",
-  "homepage": "https://Asafcd.github.io/file-manager/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.0",
